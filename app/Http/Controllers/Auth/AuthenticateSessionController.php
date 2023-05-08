@@ -18,9 +18,9 @@ class AuthenticateSessionController extends Controller
             'password' => 'required'
         ]);
 
-        $cred = $request->only('email', 'password');
+        // $cred = $request->only(['email', 'password'], ['status' => '1']);
 
-        if(auth()->attempt($cred)){
+        if(auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'status' => '1'])){
             $request->session()->regenerate();
             return redirect('/dashboard')->with('message', 'You have successfully logged in');
         }
