@@ -17,7 +17,7 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center">
+        <div>
             <x-primary-button class="mr-5 w-24">Save</x-primary-button>
             @if (session()->has('profile-updated'))
                 <p
