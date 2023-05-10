@@ -46,26 +46,26 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $id)
     {
-        return view('user.edit-user', ['user' => $user]);
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user, Request $request)
+    public function edit(User $user)
     {
-        $user->update($request->only('authorizationType', 'status'));
-        return redirect('user')->with('user.updated', $user->name);
+        return view('user.edit-user', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(User $user, Request $request)
     {
-        //
+        $user->update($request->only('authorizationType', 'status'));
+        return redirect('user')->with('user.updated', $user->name);
     }
 
     /**

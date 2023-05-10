@@ -37,7 +37,7 @@
                             </thead>
                             <tbody class="bg-white dark:bg-slate-800">
                                 @foreach ($users as $user)
-                                    <tr onclick="window.location = '{{route('user.show', $user->id)}}'" class="hover:cursor-pointer hover:bg-slate-100">
+                                    <tr onclick="window.location = '{{route('user.edit', $user->id)}}'" class="hover:cursor-pointer hover:bg-slate-100">
                                         <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->name}}</td>
                                         <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->email}}</td>
                                         <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->authorizationType}}</td>
