@@ -9,15 +9,18 @@
                         Dashboard
                     </a>
                 </div>
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                    <a href="{{route('user')}}">
-                        User
-                    </a>
-                    <a href="">
-                        Branch
-                    </a>
-                </div>
+
+                @if (auth()->user()->authorizationType === 'Admin')
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                        <a href="{{route('user')}}">
+                            User
+                        </a>
+                        <a href="{{route('branch')}}">
+                            Branch
+                        </a>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -64,12 +67,14 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden absolute w-full bg-white px-5">
         <div class="pt-2 pb-3 space-y-1">
-            <a href="{{route('user')}}" class="block">
-                User
-            </a>
-            <a href="" class="block">
-                Branch
-            </a>
+            @if (auth()->user()->authorizationType === 'Admin')
+                <a href="{{route('user')}}" class="block">
+                    User
+                </a>
+                <a href="{{route('branch')}}" class="block">
+                    Branch
+                </a>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
