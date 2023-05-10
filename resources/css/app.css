@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@media screen and (min-width: 640px) {
+    .applicationWrap nav{
+        width: 100%;
+    }
+
+    .applicationWrap nav > div:last-child{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    .applicationWrap nav{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    .applicationWrap nav > div:last-child{
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .applicationWrap nav > div:last-child > div:last-child{
+        display: none;
+    }
+}
