@@ -9,7 +9,7 @@ use Illuminate\Validation\Rules\Password;
 
 class ChangePasswordController extends Controller
 {
-    public function updatePassword(Request $request, User $user){
+    public function edit(Request $request, User $user){
         $fields = $request->validate([
             'current_password' => ['required', 'min:6', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed']
