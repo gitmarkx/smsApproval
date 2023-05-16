@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'authorizationType',
+        'branch_id',
         'password',
         'status',
     ];
@@ -46,5 +47,9 @@ class User extends Authenticatable
 
     public function applications(){
         return $this->hasMany(Application::class, 'user_id');
+    }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 }

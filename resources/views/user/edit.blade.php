@@ -34,8 +34,20 @@
                             </select>
                             <x-input-error :messages="$errors->get('authorizationType')" class="mt-2" />
                         </div>
+                
+                        <!-- Branch -->
+                        <div>
+                            <label for="branch_id">Branch</label>
+                            <select name="branch_id" id="branch_id" class="mt-2 w-full border border-gray-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-violet-300">
+                                <option value="" selected disabled hidden>Choose here</option>
+                                @foreach ($branches as $branch)
+                                    <option value="{{$branch->id}}" {{old('branch_id', $user->branch_id) == $branch->id ? 'selected' : ''}}>{{$branch->key}}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('branch_id')" class="mt-2" />
+                        </div>
 
-                        <!-- Authorization Type -->
+                        <!-- Status -->
                         <div>
                             <label for="status">Status</label>
                             <select name="status" id="status" class="mt-2 w-full border border-gray-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-violet-300">

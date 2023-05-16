@@ -20,4 +20,8 @@ class Branch extends Model
     public function applications(){
         return $this->hasMany(Application::class, 'branch_id');
     }
+
+    public function users(){
+        return $this->hasMany(User::class, 'users_id');
+    }
 }
