@@ -1,0 +1,7 @@
+Application Type
+0 - New Application
+1 - Reapplication
+
+User Status
+0 - Inactive
+1 - Active

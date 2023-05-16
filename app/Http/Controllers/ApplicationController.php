@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Application;
+use App\Models\Customer;
 use App\Models\SearchIndex;
 use Illuminate\Http\Request;
 
@@ -26,12 +27,16 @@ class ApplicationController extends Controller
     //     return $results;
     // }
 
+    public function searchCustomer($term){
+        return ['customers' => Customer::search($term)->get()];
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('application.create');
     }
 
     /**
@@ -39,7 +44,24 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'applicationType'     => 'required',
+            'customer_id'         => 'required',
+            'fname'               => 'required',
+            'lname'               => 'required',
+            'contactNo'           => ['required', 'regex:/^[0-9]{11}$/'],
+            'address'             => 'required',
+            'salesAccount'        => 'required',
+            'dealerSalesAccount'  => 'required',
+            'imgSrc.*'            => ['required', 'image'],
+        ]);
+
+        if($request->input('applicationType')){
+            // return dd($request->all());
+            
+        }else{
+            return dd($request->all());
+        }
     }
 
     /**
