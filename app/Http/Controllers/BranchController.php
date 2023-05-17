@@ -13,7 +13,7 @@ class BranchController extends Controller
     public function index()
     {
         $branches = Branch::all();
-        return view('branch.branch', ['branches' => $branches]);
+        return view('branch.index', ['branches' => $branches]);
     }
 
     /**
@@ -21,7 +21,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('branch.create-branch');
+        return view('branch.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch, Request $request)
     {
-        return view('branch.edit-branch', ['branch' => $branch]);
+        return view('branch.edit', ['branch' => $branch]);
     }
 
     /**
