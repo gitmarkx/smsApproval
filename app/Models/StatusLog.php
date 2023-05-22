@@ -17,4 +17,8 @@ class StatusLog extends Model
     public function applications(){
         return $this->hasMany(Application::class, 'app_id');
     }
+
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
