@@ -6,8 +6,8 @@ export default class SearchCustomer{
     constructor(){
         this.injectHTML()
         this.reAppBox = document.getElementById('reapp')
-        this.overlay = document.getElementById('search-overlay')
-        this.overlayBg = document.querySelector('.search-wrap-bg')
+        this.overlay = document.getElementById('modal-overlay')
+        this.overlayBg = document.querySelector('.modal-overlay-bg')
         this.searchInput = document.querySelector('[name="searchInput"]')
         this.searchResults = document.querySelector('.searchResults')
         this.loaderIcon = document.querySelector(".circle-loader");
@@ -31,7 +31,7 @@ export default class SearchCustomer{
         })
 
         document.addEventListener("keydown", (e) => {
-            if(e.key == "Escape" && this.overlay.classList.contains('search-overlay--visible')){
+            if(e.key == "Escape" && this.overlay.classList.contains('modal-overlay--visible')){
                 this.closeOverlay();
                 this.reAppBox.checked = false;
             }
@@ -108,20 +108,20 @@ export default class SearchCustomer{
     }
 
     openOverlay(){
-        this.overlay.classList.add('search-overlay--visible')
+        this.overlay.classList.add('modal-overlay--visible')
         setTimeout(() => this.searchInput.focus(), 50)
     }
 
     closeOverlay() {
-        this.overlay.classList.remove("search-overlay--visible");
+        this.overlay.classList.remove("modal-overlay--visible");
         this.searchInput.value = "";
     }
 
     injectHTML(){
         document.body.insertAdjacentHTML(
             "beforeend",
-            `<div id="search-overlay" class="search-overlay">
-                <div class="search-wrap-bg"></div>
+            `<div id="modal-overlay" class="modal-overlay">
+                <div class="modal-overlay-bg"></div>
                 <div class="search-wrap w-full md:w-96 mx-auto p-3 md:mt-5 bg-white">
                     <input class="block w-full border border-gray-200 rounded p-2 pr-10 focus:outline-none focus:ring-1 focus:ring-violet-300" type="text" name="searchInput" value="" placeholder="Search customer name..." />
                     <div class="circle-loader"></div>

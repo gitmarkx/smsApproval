@@ -9,7 +9,7 @@ export default class GetCustomerInfo{
         this.lname = document.getElementById('lname');
         this.contactNo = document.getElementById('contactNo');
         this.address = document.getElementById('address');
-        this.overlay = document.getElementById('search-overlay')
+        this.overlay = document.getElementById('modal-overlay')
         this.searchResults = document.querySelector('.searchResults')
         this.newApp = document.getElementById('newapp')
     }
