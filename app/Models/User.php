@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'authorizationType',
+        'branch_id',
         'password',
         'status',
     ];
@@ -43,4 +44,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function applications(){
+        return $this->hasMany(Application::class, 'user_id');
+    }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+    
+    public function statusLogs(){
+        return $this->hasMany(StatusLog::class, 'user_id');
+    }
 }

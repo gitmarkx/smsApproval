@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,16 +14,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return view('user.user', ['users' => $user]);
+        $user = User::with('branch')->get();
+        return view('user.index', ['users' => $user]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('user.create-user');
+    {   
+        $branches = Branch::all();
+        return view('user.create', ['branches' => $branches]);
     }
 
     /**
@@ -31,11 +33,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $fields = $request->validate([
-            'name' => 'required',
-            'email' => ['email', 'max:255', Rule::unique('users', 'email')],
-            'authorizationType' => 'required',
-            'password' => ['required', 'min:6', 'confirmed']
+            'name'               => 'required',
+            'email'              => ['email', 'max:255', Rule::unique('users', 'email')],
+            'authorizationType'  => 'required',
+            'branch_id'          => 'required',
+            'password'           => ['required', 'min:6', 'confirmed']
+        ], [
+            'branch_id.required' => 'The branch field is required.',
         ]);
+
         $fields['password'] = bcrypt($fields['password']);
         $fields['status'] = '1';
         User::create($fields);
@@ -56,7 +62,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit-user', ['user' => $user]);
+        $branches = Branch::all();
+        return view('user.edit', ['user' => $user, 'branches' => $branches]);
     }
 
     /**
@@ -64,7 +71,7 @@ class UserController extends Controller
      */
     public function update(User $user, Request $request)
     {
-        $user->update($request->only('authorizationType', 'status'));
+        $user->update($request->only('authorizationType', 'branch_id', 'status'));
         return redirect('user')->with('user.updated', $user->name);
     }
 

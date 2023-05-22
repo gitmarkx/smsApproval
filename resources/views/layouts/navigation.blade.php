@@ -10,17 +10,20 @@
                     </a>
                 </div>
 
-                @if (auth()->user()->authorizationType === 'Admin')
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                    <a href="{{route('application')}}">
+                        Application
+                    </a>
+                    @if (auth()->user()->authorizationType === 'Admin')
                         <a href="{{route('user')}}">
                             User
                         </a>
                         <a href="{{route('branch')}}">
                             Branch
                         </a>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -65,8 +68,11 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden absolute w-full bg-white px-5">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden absolute z-50 w-full bg-white px-5 drop-shadow-md">
         <div class="pt-2 pb-3 space-y-1">
+            <a href="{{route('application')}}">
+                Application
+            </a>
             @if (auth()->user()->authorizationType === 'Admin')
                 <a href="{{route('user')}}" class="block">
                     User

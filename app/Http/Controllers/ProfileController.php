@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 class ProfileController extends Controller
 {
     public function profile(){
-        return view('profile.profile');
+        return view('profile.index');
     }
 
     public function updateProfile(Request $request, User $user){

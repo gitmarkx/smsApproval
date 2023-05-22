@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,14 @@ Route::middleware('auth')->group(function(){
         return view('dashboard.dashboard');
     })->name('dashboard');
     
-    
+    // Application related routes
+    Route::get('/application', [ApplicationController::class, 'index'])->name('application');
+    Route::get('/application/create', [ApplicationController::class, 'create'])->name('application.create');
+    Route::post('/application/create', [ApplicationController::class, 'store'])->name('application.store');
+    Route::post('/application/uploadDocs', [ApplicationController::class, 'uploadDocs'])->name('application.uploadDocs');
+    Route::get('/searchCustomer/{term}', [ApplicationController::class, 'searchCustomer'])->name('application.searchCustomer');
+    Route::get('/application/{app}', [ApplicationController::class, 'show'])->name('application.show');
+
     // Profile related routes
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::put('/profile/{user}', [ProfileController::class, 'updateProfile'])->name('profile.update');
