@@ -11,7 +11,8 @@ class StatusLog extends Model
 
     protected $fillable = [
         'app_id',
-        'status'
+        'status',
+        'user_id',
     ];
 
     public function applications(){

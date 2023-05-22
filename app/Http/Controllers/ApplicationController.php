@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\ApplicationImages;
 use App\Models\Customer;
 use App\Models\SearchIndex;
+use App\Models\StatusLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,8 +94,6 @@ class ApplicationController extends Controller
                 'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')
             ]);
-
-            return redirect(route('application'))->with('application.created', $request->fname. ' ' .$request->lname);
         }else{
             Customer::create([
                 'fname'     => $request->fname,
@@ -123,9 +122,16 @@ class ApplicationController extends Controller
                 'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')
             ]);
-
-            return redirect(route('application'))->with('application.created', $request->fname. ' ' .$request->lname);
         }
+
+        $latestAppId = Application::latest('id')->value('id');
+        StatusLog::create([
+            'app_id'     => $latestAppId,
+            'status'     => 'New Entry',
+            'user_id'    => auth()->user()->id,
+        ]);
+        
+        return redirect(route('application'))->with('application.created', $request->fname. ' ' .$request->lname);
     }
 
     public function uploadDocs(Request $request){
@@ -162,6 +168,7 @@ class ApplicationController extends Controller
             'branch' => $app->branch,
             'user' => $app->user,
             'images' => $app->applicationImages,
+            'logs' => $app->statusLogs,
         ]);
     }
 

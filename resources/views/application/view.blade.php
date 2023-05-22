@@ -112,7 +112,14 @@
         <div class="modal-overlay-bg"></div>
         <div class="modal-wrap status-wrap w-full md:w-96 mx-auto p-3 md:mt-5 bg-white">
             <div class="statusLog">
-                <p>Status Log</p>
+                <p class="mb-5">Status Log</p>
+                <ul>
+                    @foreach ($logs as $log)
+                    <li class="b border-b py-2">
+                        <b>{{$log->status}}</b> on {{ date('F j, Y', strtotime($log->created_at)) }} by {{$log->users->name}}
+                    </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>
