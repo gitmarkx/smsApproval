@@ -1,4 +1,5 @@
 import './bootstrap';
+import './index';
 import SearchCustomer from './searchCustomer';
 import GetCustomerInfo from './getCustomerInfo';
 

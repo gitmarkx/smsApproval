@@ -35,15 +35,15 @@ class Application extends Model
     //     ];
     // }
 
-    public function customers(){
+    public function customer(){
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function branches(){
+    public function branch(){
         return $this->belongsTo(Branch::class, 'branch_id');
     }
 

@@ -22,7 +22,7 @@ class Customer extends Model
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
+            'id'    => $this->id,
             'fname' => $this->fname,
             'mname' => $this->mname,
             'lname' => $this->lname

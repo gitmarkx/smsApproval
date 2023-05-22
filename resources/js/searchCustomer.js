@@ -74,7 +74,7 @@ export default class SearchCustomer{
                     ${results.map((item) => {
                         return `
                             <li>
-                                <a id="${item.id}" class="border-b p-2 block hover:bg-slate-100 cursor-pointer">${item.lname}, ${item.fname} ${item.mname}</a>
+                                <a id="${item.id}" class="border-b p-2 block hover:bg-slate-100 cursor-pointer">${item.lname}, ${item.fname} ${item.mname ?? ''}</a>
                             </li>
                         `
                     }).join('')}

@@ -17,7 +17,7 @@
                 </label>
             </li>
             <li class="border p-5 rounded-sm mb-4">
-                <x-text-input id="customer_id" class="block mt-2" type="text" name="customer_id" value="{{old('customer_id')}}" />
+                <x-text-input id="customer_id" class="mt-2 hidden" type="text" name="customer_id" value="{{old('customer_id')}}" />
                 <div class="md:flex flex-wrap">
                     <div class="mb-3 md:w-4/12">
                         <label for="fname">Firstname</label>
@@ -76,7 +76,7 @@
                 <div class="md:flex flex-wrap">
                     <div class="mb-3 md:w-6/12 md:pr-2">
                         <label for="imgSrc">Documents</label>
-                        <x-text-input id="imgSrc" class="block mt-2" type="file" name="imgSrc[]" multiple value="{{ is_array(old('imgSrc')) ? implode(',', old('imgSrc')) : old('imgSrc') }}" />
+                        <x-text-input id="imgSrc" class="block mt-2" type="file" name="imgSrc[]" multiple accept="image/*" value="{{ is_array(old('imgSrc')) ? implode(',', old('imgSrc')) : old('imgSrc') }}" />
                         <x-input-error :messages="$errors->get('imgSrc')" class="mt-2" />
                     </div>
                     

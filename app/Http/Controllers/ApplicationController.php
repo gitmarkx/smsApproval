@@ -17,7 +17,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::with(['users', 'branches', 'customers'])->paginate(10);
+        $applications = Application::with(['user', 'branch', 'customer'])->paginate(10);
         return view('application.index', ['applications' => $applications]);
     }
 
@@ -38,10 +38,11 @@ class ApplicationController extends Controller
         $latestId = Application::latest('id')->value('id');
         $folderName = uniqid() . '-' . $latestId . '-' .  $request['customer_id'];
         $storage = 'documents/'.$folderName;
-        Storage::makeDirectory($storage);
+        // Storage::makeDirectory($storage);
 
         foreach($request['imgSrc'] as $image){
-            $path = Storage::disk('local')->put($storage, $image);
+            // $path = Storage::disk('local')->put($storage, $image);
+            $path = $image->store($storage, 'public');
             $imgData = [
                 'app_id' => $latestId,
                 'imgSrc' => $path
@@ -63,15 +64,16 @@ class ApplicationController extends Controller
             'address'             => 'required',
             'salesAccount'        => 'required',
             'dealerSalesAccount'  => 'required',
-            'imgSrc.*'            => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:20000'],
+            'imgSrc'              => ['required'], //, 'mimes:jpeg,jpg,png', 'size:2000'
         ], [
             'fname.required'      => 'The firstname field is required.',
             'lname.required'      => 'The lastname field is required.',
             'contactNo.required'  => 'The contact number field is required.',
             'contactNo.regex'     => 'The contact number field format is invalid',
-            'imgSrc.*.required'   => 'The documents field is required.',
-            'imgSrc.*.image'      => 'The documents field must be an image.',
-            'imgSrc.*.max'        => 'Sorry! Maximum allowed size for an image is 20MB',
+            'imgSrc.required'     => 'The documents files is required',
+            // 'imgSrc.mimes'        => 'The documents only accepts images "jpeg, jpg, png"',
+            // 'imgSrc.size'         => 'lapas ra',
+           
         ]);
 
         if($request->input('applicationType')){
@@ -127,9 +129,16 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Application $app)
     {
-        //
+
+        return view('application.view' ,[
+            'application' => $app,
+            'customer' => $app->customer,
+            'branch' => $app->branch,
+            'user' => $app->user,
+            'images' => $app->applicationImages,
+        ]);
     }
 
     /**

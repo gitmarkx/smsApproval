@@ -25,15 +25,15 @@
                 </thead>
                 <tbody>
                     @foreach ($applications as $item)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr onclick="window.location = '{{route('application.show', $item->id)}}'" class="hover:cursor-pointer hover:bg-slate-100 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ date('F j, Y', strtotime($item->created_at)) }}
                             </th>
                             <td class="px-2 py-4">
-                                {{ $item->customers->fname . ' ' . $item->customers->lname }}
+                                {{ $item->customer->fname . ' ' . $item->customer->lname }}
                             </td>
                             <td class="px-2 py-4">
-                                {{ $item->branches->key }}
+                                {{ $item->branch->key }}
                             </td>
                             <td class="px-2 py-4">
                                 {{ $item->status }}
