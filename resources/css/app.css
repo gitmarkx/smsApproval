@@ -62,7 +62,7 @@ body{
     z-index: 1;
 }
 
-.search-wrap{
+.modal-wrap{
     position: relative;
     z-index: 2;
 }

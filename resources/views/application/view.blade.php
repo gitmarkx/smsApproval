@@ -110,10 +110,9 @@
     </div>
     <div id="statusLog" class="modal-overlay">
         <div class="modal-overlay-bg"></div>
-        <div class="search-wrap w-full md:w-96 mx-auto p-3 md:mt-5 bg-white">
-            <input class="block w-full border border-gray-200 rounded p-2 pr-10 focus:outline-none focus:ring-1 focus:ring-violet-300" type="text" name="searchInput" value="" placeholder="Search customer name..." />
-            <div class="circle-loader"></div>
-            <div class="searchResults">
+        <div class="modal-wrap status-wrap w-full md:w-96 mx-auto p-3 md:mt-5 bg-white">
+            <div class="statusLog">
+                <p>Status Log</p>
             </div>
         </div>
     </div>

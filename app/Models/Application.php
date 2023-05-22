@@ -50,4 +50,8 @@ class Application extends Model
     public function applicationImages(){
         return $this->hasMany(ApplicationImages::class, 'app_id');
     }
+
+    public function statusLogs(){
+        return $this->hasMany(StatusLog::class, 'app_id');
+    }
 }
