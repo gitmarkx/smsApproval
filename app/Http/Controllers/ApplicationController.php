@@ -85,7 +85,7 @@ class ApplicationController extends Controller
                 'dealerSalesAccount'    => $request->dealerSalesAccount,
                 'desiredUnit'           => $request->desiredUnit,
                 'bip'                   => $request->bip,
-                'status'                => 'Pending',
+                'status'                => 'New Entry',
             ]);
             
             $this->storeDocuments([
@@ -113,7 +113,7 @@ class ApplicationController extends Controller
                 'dealerSalesAccount'    => $request->dealerSalesAccount,
                 'desiredUnit'           => $request->desiredUnit,
                 'bip'                   => $request->bip,
-                'status'                => 'Pending',
+                'status'                => 'New Entry',
             ]);
 
             $this->storeDocuments([
