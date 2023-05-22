@@ -36,12 +36,10 @@ class ApplicationController extends Controller
     private function storeDocuments($request){
         // Save customer documents to storage folder
         $latestId = Application::latest('id')->value('id');
-        $folderName = uniqid() . '-' . $latestId . '-' .  $request['customer_id'];
+        $folderName = strtoupper($request['lname']) . ',' . strtoupper($request['fname']) . '-' . $latestId . '-' . $request['customer_id'];
         $storage = 'documents/'.$folderName;
-        // Storage::makeDirectory($storage);
 
         foreach($request['imgSrc'] as $image){
-            // $path = Storage::disk('local')->put($storage, $image);
             $path = $image->store($storage, 'public');
             $imgData = [
                 'app_id' => $latestId,
@@ -91,6 +89,8 @@ class ApplicationController extends Controller
             
             $this->storeDocuments([
                 'customer_id' => $request->customer_id,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')
             ]);
 
@@ -118,12 +118,36 @@ class ApplicationController extends Controller
             ]);
 
             $this->storeDocuments([
-                'customer_id' => $latestCustId,
+                'customer_id' => $request->customer_id,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')
             ]);
 
             return redirect(route('application'))->with('application.created', $request->fname. ' ' .$request->lname);
         }
+    }
+
+    public function uploadDocs(Request $request){
+        $this->validate($request, [
+            'imgSrc'              => ['required'], //, 'mimes:jpeg,jpg,png', 'size:2000'
+        ], [
+            // 'imgSrc.mimes'        => 'The documents only accepts images "jpeg, jpg, png"',
+            // 'imgSrc.size'         => 'lapas ra',
+        ]);
+
+        // Save customer documents to storage folder
+        $folderName = strtoupper($request->input('name')) . '-' . $request->input('app_id') . '-' . $request->input('customer_id');
+        $storage = 'documents/'.$folderName;
+        foreach($request['imgSrc'] as $image){
+            $path = $image->store($storage, 'public');
+            $imgData = [
+                'app_id' => $request->input('app_id'),
+                'imgSrc' => $path
+            ];
+            ApplicationImages::create($imgData);
+        }
+        return back()->with('documents.uploaded', 'Additional documents have been uploaded!');
     }
 
     /**
