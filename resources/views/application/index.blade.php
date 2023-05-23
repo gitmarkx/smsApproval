@@ -14,34 +14,34 @@
     <div class="my-5"></div>
     <div class="applicationWrap relative text-gray-900 dark:text-gray-100">
         <div class="relative overflow-x-auto mb-5">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="appTable border border-collapse table-auto snap-x w-full text-sm">
+                <thead class="bg-gray-200">
                     <tr>
-                        <th scope="col" class="px-2 py-3">Date</th>
-                        <th scope="col" class="px-2 py-3">Name</th>
-                        <th scope="col" class="px-2 py-3">Branch</th>
-                        <th scope="col" class="px-2 py-3">Status</th>
+                        <th class="border-b dark:border-slate-600 font-medium py-4 px-2 dark:text-slate-200 text-left">Date</th>
+                        <th class="border-b dark:border-slate-600 font-medium py-4 px-2 dark:text-slate-200 text-left">Name</th>
+                        <th class="border-b dark:border-slate-600 font-medium py-4 px-2 dark:text-slate-200 text-left">Branch</th>
+                        <th class="border-b dark:border-slate-600 font-medium py-4 px-2 dark:text-slate-200 text-left">Status</th>
+                        <th class="border-b dark:border-slate-600 font-medium py-4 px-2 dark:text-slate-200 text-left">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white dark:bg-slate-800">
                     @foreach ($applications as $item)
-                        <tr onclick="window.location = '{{route('application.show', $item->id)}}'" class="hover:cursor-pointer hover:bg-slate-100 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ date('F j, Y', strtotime($item->created_at)) }}
-                            </th>
-                            <td class="px-2 py-4">
-                                {{ $item->customer->fname . ' ' . $item->customer->lname }}
-                            </td>
-                            <td class="px-2 py-4">
-                                {{ $item->branch->key }}
-                            </td>
-                            <td class="px-2 py-4">
-                                {{ $item->status }}
+                        <tr class="hover:bg-slate-100">
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{date('F d, Y', strtotime($item->created_at))}}</td>
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->customer->lname}}, {{$item->customer->fname}} {{$item->customer->mname}}</td>
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->branch->key}}</td>
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->status}}</td>
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">
+                                <a href="{{route('application.show', $item->id)}}" class="a bg-indigo-700 text-white p-1 rounded-md">View</a>
+                                @if (auth()->user()->authorizationType === 'B')
+                                    <a class="a bg-red-700 text-white p-1 rounded-md">Delete</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            
         </div>
         {{ $applications->links() }}
     </div>

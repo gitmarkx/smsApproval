@@ -117,7 +117,7 @@ class ApplicationController extends Controller
             ]);
 
             $this->storeDocuments([
-                'customer_id' => $request->customer_id,
+                'customer_id' => $latestCustId,
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')

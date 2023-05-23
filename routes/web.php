@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function(){
     
     // Application related routes
     Route::get('/application', [ApplicationController::class, 'index'])->name('application');
-    Route::get('/application/create', [ApplicationController::class, 'create'])->name('application.create');
-    Route::post('/application/create', [ApplicationController::class, 'store'])->name('application.store');
+    Route::get('/application/create', [ApplicationController::class, 'create'])->middleware('auth.type:B')->name('application.create');
+    Route::post('/application/create', [ApplicationController::class, 'store'])->middleware('auth.type:B')->name('application.store');
     Route::post('/application/uploadDocs', [ApplicationController::class, 'uploadDocs'])->name('application.uploadDocs');
     Route::get('/searchCustomer/{term}', [ApplicationController::class, 'searchCustomer'])->name('application.searchCustomer');
     Route::get('/application/{app}', [ApplicationController::class, 'show'])->name('application.show');

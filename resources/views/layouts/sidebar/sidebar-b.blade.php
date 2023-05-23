@@ -4,19 +4,19 @@
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul>
             <li>
-                <a href="#"
+                <a href="{{route('application')}}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span class="ml-3">Applications</span>
                 </a>
                 <ul class="w-11/12 ml-auto">
                     <li>
-                        <a href="#"
+                        <a href="{{route('application')}}"
                             class="flex items-center py-2 px-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                             <span class="ml-3">All Applications</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{route('application.create')}}"
                             class="flex items-center py-2 px-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                             <span class="ml-3">Create</span>
                         </a>
