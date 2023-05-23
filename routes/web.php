@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function(){
 });
 
 
-Route::middleware(['auth', 'auth.type:Admin'])->group(function(){
+Route::middleware(['auth', 'auth.type:M'])->group(function(){
     // User related routes
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');

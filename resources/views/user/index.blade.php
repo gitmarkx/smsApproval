@@ -38,7 +38,12 @@
                         <tr onclick="window.location = '{{route('user.edit', $user->id)}}'" class="hover:cursor-pointer hover:bg-slate-100">
                             <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->name}}</td>
                             <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->email}}</td>
-                            <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->authorizationType}}</td>
+                            <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">
+                                {{$user->authorizationType === 'M' ? 'Admin' : ''}}
+                                {{$user->authorizationType === 'A' ? 'Approval' : ''}}
+                                {{$user->authorizationType === 'V' ? 'Verifier' : ''}}
+                                {{$user->authorizationType === 'B' ? 'Branch' : ''}}
+                            </td>
                             <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$user->branch->key}}</td>
                             <td class="border-b border-slate-100 dark:border-slate-700 py-4 px-2 dark:text-slate-400">
                                 {{
