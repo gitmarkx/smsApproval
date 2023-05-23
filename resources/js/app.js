@@ -1,5 +1,6 @@
 import './bootstrap';
 import './index';
+import 'flowbite';
 import SearchCustomer from './searchCustomer';
 import GetCustomerInfo from './getCustomerInfo';
 

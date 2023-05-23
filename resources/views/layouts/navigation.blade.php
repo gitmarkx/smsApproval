@@ -15,7 +15,7 @@
                     <a href="{{route('application')}}">
                         Application
                     </a>
-                    @if (auth()->user()->authorizationType === 'M')
+                    @if (auth()->user()->authorizationType === 'Admin')
                         <a href="{{route('user')}}">
                             User
                         </a>
@@ -73,7 +73,7 @@
             <a href="{{route('application')}}">
                 Application
             </a>
-            @if (auth()->user()->authorizationType === 'M')
+            @if (auth()->user()->authorizationType === 'Admin')
                 <a href="{{route('user')}}" class="block">
                     User
                 </a>
