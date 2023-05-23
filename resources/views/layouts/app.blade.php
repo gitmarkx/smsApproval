@@ -38,16 +38,16 @@
                 </button>
             </div>
             @if (auth()->user()->authorizationType === 'M')
-                @include('layouts.sidebar-m')
+                @include('layouts.sidebar.sidebar-m')
             @endif
             @if (auth()->user()->authorizationType === 'A')
-                @include('layouts.sidebar-a')
+                @include('layouts.sidebar.sidebar-a')
             @endif
             @if (auth()->user()->authorizationType === 'V')
-                @include('layouts.sidebar-v')
+                @include('layouts.sidebar.sidebar-v')
             @endif
             @if (auth()->user()->authorizationType === 'B')
-                @include('layouts.sidebar-b')
+                @include('layouts.sidebar.sidebar-b')
             @endif
         </nav>
         <!-- Page Content -->

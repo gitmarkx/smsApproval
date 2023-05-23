@@ -15,9 +15,9 @@ class ProfileController extends Controller
     public function updateProfile(Request $request, User $user){
         $this->validate($request, [
             'name' => ['required', 'max:255'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore(auth()->user()->id)]
+            // 'email' => ['email', 'max:255', Rule::unique(User::class)->ignore(auth()->user()->id)]
         ]);
-        $user->update($request->only(['name', 'email']));
+        $user->update($request->only(['name']));
         return back()->with('profile-updated', 'profile-updated');
     }
 }
