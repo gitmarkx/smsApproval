@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('status_logs', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('status');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::create('branches', function (Blueprint $table) {
+            $table->id();
+            $table->string('key');
+            $table->longText('description')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('status_logs', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('branch');
     }
 };
