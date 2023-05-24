@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/application/uploadDocs', [ApplicationController::class, 'uploadDocs'])->name('application.uploadDocs');
     Route::get('/searchCustomer/{term}', [ApplicationController::class, 'searchCustomer'])->name('application.searchCustomer');
     Route::get('/application/{app}', [ApplicationController::class, 'show'])->name('application.show');
+    Route::delete('/application/{app}', [ApplicationController::class, 'destroy'])->name('application.destroy');
 
     // Profile related routes
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');

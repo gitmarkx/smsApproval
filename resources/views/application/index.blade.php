@@ -14,6 +14,7 @@
     <div class="my-5"></div>
     <div class="applicationWrap relative text-gray-900 dark:text-gray-100">
         <div class="relative overflow-x-auto mb-5">
+            @if (count($applications) > 0)
             <table class="appTable border border-collapse table-auto snap-x w-full text-sm">
                 <thead class="bg-gray-200">
                     <tr>
@@ -31,17 +32,23 @@
                             <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->customer->lname}}, {{$item->customer->fname}} {{$item->customer->mname}}</td>
                             <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->branch->key}}</td>
                             <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">{{$item->status}}</td>
-                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400">
-                                <a href="{{route('application.show', $item->id)}}" class="a bg-indigo-700 text-white p-1 rounded-md">View</a>
+                            <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400 flex">
+                                <a href="{{route('application.show', $item->id)}}" class="a bg-indigo-700 text-white p-1 rounded-md mr-2">View</a>
                                 @if (auth()->user()->authorizationType === 'B')
-                                    <a class="a bg-red-700 text-white p-1 rounded-md">Delete</a>
+                                    <form method="POST" action="{{route('application.destroy', $item->id)}}" id="formDeleteApp" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-700 text-white p-1 rounded-md">Delete</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            
+            @else
+                <p>No data available!</p>
+            @endif
         </div>
         {{ $applications->links() }}
     </div>

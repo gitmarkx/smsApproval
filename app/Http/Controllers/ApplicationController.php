@@ -191,8 +191,17 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $app)
     {
-        //
+        // Remove images from storage folder
+        $appimg = ApplicationImages::get()->where('app_id', '=', $app);
+        $decodeJSON = json_decode($appimg);
+        $imgPath = reset($decodeJSON)->imgSrc;
+        $folderName = explode('/', $imgPath)[1];
+        Storage::disk('public')->deleteDirectory('documents/' . $folderName);
+
+        ApplicationImages::whereIn('app_id', [$app])->delete();
+        Application::findOrFail($app)->delete();
+        return dd('deleted na');
     }
 }
