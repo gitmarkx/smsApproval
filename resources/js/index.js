@@ -12,7 +12,16 @@ if(document.getElementById('btnStatusLog')){
 if(document.getElementById('formDeleteApp')){
     document.getElementById('formDeleteApp').addEventListener('submit', function(e) {
         e.preventDefault()
-        if(confirm('Are you sure you want to delete this item?')){
+        if(confirm('Are you sure you want to delete this application?')){
+            this.submit();
+        }
+    })
+}
+
+if(document.getElementById('formCancelApp')){
+    document.getElementById('formCancelApp').addEventListener('submit', function(e) {
+        e.preventDefault()
+        if(confirm('Are you sure you want to cancel this application?')){
             this.submit();
         }
     })

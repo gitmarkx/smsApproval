@@ -10,6 +10,24 @@
             class="mb-3 text-sm text-gray-600 dark:text-gray-400"
         >{{ __(session('application.created') . ' account has been successfully created!') }}</p>
     @endif
+    @if (session('application.deleted'))
+        <p
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition
+            x-init="setTimeout(() => show = false, 2000)"
+            class="mb-3 text-sm text-gray-600 dark:text-gray-400"
+        >{{ __(session('application.deleted')) }}</p>
+    @endif
+    @if (session('application.canceled'))
+        <p
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition
+            x-init="setTimeout(() => show = false, 2000)"
+            class="mb-3 text-sm text-gray-600 dark:text-gray-400"
+        >{{ __(session('application.canceled')) }}</p>
+    @endif
     <a href="{{ route('application.create') }}" class="block text-center w-fit px-4 py-3 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Create Application</a>
     <div class="my-5"></div>
     <div class="applicationWrap relative text-gray-900 dark:text-gray-100">
@@ -38,8 +56,14 @@
                                     <form method="POST" action="{{route('application.destroy', $item->id)}}" id="formDeleteApp" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-700 text-white p-1 rounded-md">Delete</button>
+                                        <button type="submit" class="bg-red-700 text-white p-1 rounded-md mr-2">Delete</button>
                                     </form>
+                                    @if ($item->status != 'Canceled')
+                                        <form method="POST" action="{{route('application.cancel', $item->id)}}" id="formCancelApp" >
+                                            @csrf
+                                            <button type="submit" class="bg-red-700 text-white p-1 rounded-md">Cancel</button>
+                                        </form>
+                                    @endif
                                 @endif
                             </td>
                         </tr>

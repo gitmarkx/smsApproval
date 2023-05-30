@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/searchCustomer/{term}', [ApplicationController::class, 'searchCustomer'])->name('application.searchCustomer');
     Route::get('/application/{app}', [ApplicationController::class, 'show'])->name('application.show');
     Route::delete('/application/{app}', [ApplicationController::class, 'destroy'])->name('application.destroy');
+    Route::post('/application/{app}', [ApplicationController::class, 'cancel'])->name('application.cancel');
 
     // Profile related routes
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');

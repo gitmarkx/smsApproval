@@ -193,6 +193,10 @@ class ApplicationController extends Controller
      */
     public function destroy(string $app)
     {
+        // Get customer data
+        $data = Application::find($app)->customer;
+        $custName = $data->lname . ', ' . $data->fname;
+
         // Remove images from storage folder
         $appimg = ApplicationImages::get()->where('app_id', '=', $app);
         $decodeJSON = json_decode($appimg);
@@ -200,8 +204,27 @@ class ApplicationController extends Controller
         $folderName = explode('/', $imgPath)[1];
         Storage::disk('public')->deleteDirectory('documents/' . $folderName);
 
+        // Remove applications data from table
         ApplicationImages::whereIn('app_id', [$app])->delete();
         Application::findOrFail($app)->delete();
-        return dd('deleted na');
+
+        return back()->with('application.deleted', $custName . ' application has been deleted!');
+    }
+
+    public function cancel(Application $app){
+        // Update application status
+        $app->status = 'Canceled';
+        $app->save();
+
+        // Insert new data to status logs
+        StatusLog::create([
+            'app_id'  => $app->id,
+            'status'  => 'Canceled',
+            'user_id' => auth()->user()->id
+        ]);
+
+        // Get customer data
+        $custName = $app->customer->lname . ', ' . $app->customer->fname;
+        return back()->with('application.canceled', $custName . ' application has been canceled!');
     }
 }
