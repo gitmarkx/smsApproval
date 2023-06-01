@@ -53,17 +53,17 @@
                             <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400 flex">
                                 <a href="{{route('application.show', $item->id)}}" class="a bg-indigo-700 text-white p-1 rounded-md mr-2">View</a>
                                 @if (auth()->user()->authorizationType === 'B')
-                                    <form method="POST" action="{{route('application.destroy', $item->id)}}" id="formDeleteApp" >
+                                    <form method="POST" action="{{route('application.destroy', $item->id)}}" class="formDeleteApp" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-red-700 text-white p-1 rounded-md mr-2">Delete</button>
                                     </form>
-                                    @if ($item->status != 'Canceled')
-                                        <form method="POST" action="{{route('application.cancel', $item->id)}}" id="formCancelApp" >
+                                    @unless ($item->status == 'Canceled')
+                                        <form method="POST" action="{{route('application.cancel', $item->id)}}" class="formCancelApp" >
                                             @csrf
                                             <button type="submit" class="bg-red-700 text-white p-1 rounded-md">Cancel</button>
                                         </form>
-                                    @endif
+                                    @endunless
                                 @endif
                             </td>
                         </tr>

@@ -9,21 +9,25 @@ if(document.getElementById('btnStatusLog')){
     })
 }
 
-if(document.getElementById('formDeleteApp')){
-    document.getElementById('formDeleteApp').addEventListener('submit', function(e) {
-        e.preventDefault()
-        if(confirm('Are you sure you want to delete this application?')){
-            this.submit();
-        }
+if(document.querySelector('.formDeleteApp')){
+    document.querySelectorAll('.formDeleteApp').forEach((ele) => {
+        ele.addEventListener('submit', function(e) {
+            e.preventDefault()
+            if(confirm('Are you sure you want to delete this application?')){
+                this.submit();
+            }
+        })
     })
 }
 
-if(document.getElementById('formCancelApp')){
-    document.getElementById('formCancelApp').addEventListener('submit', function(e) {
-        e.preventDefault()
-        if(confirm('Are you sure you want to cancel this application?')){
-            this.submit();
-        }
+if(document.querySelector('.formCancelApp')){
+    document.querySelectorAll('.formCancelApp').forEach((ele) => {
+        ele.addEventListener('submit', function(e) {
+            e.preventDefault()
+            if(confirm('Are you sure you want to cancel this application?')){
+                this.submit();
+            }
+        })
     })
 }
 
