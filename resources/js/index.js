@@ -34,21 +34,12 @@ if(document.querySelector('.formCancelApp')){
 if(document.getElementById('b-form-app')){
     document.getElementById('b-form-app').addEventListener('submit', function(e){
         e.preventDefault()
-        const btnCancel = e.submitter.name === "Cancel";
-        const btnDelete = e.submitter.name === "Delete";
+        const btnEvent =  e.submitter.name
         let clickEvent = document.getElementById('clickEvent')
-
-        if(btnCancel){
-            if(confirm('Are you sure you want to cancel this application?')){
-                clickEvent.value = 'Cancel'
-                this.submit();
-            }
+        
+        if(confirm('Are you sure you want to '+ btnEvent.toLowerCase() +' this application?')){
+            clickEvent.value = btnEvent.charAt(0).toUpperCase() + btnEvent.slice(1).toLowerCase()
+            this.submit();
         }
-        if(btnDelete){
-            if(confirm('Are you sure you want to delete this application?')){
-                clickEvent.value = 'Delete'
-                this.submit();
-            }
-        } 
     })
 }

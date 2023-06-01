@@ -53,12 +53,14 @@
                             <td class="border-b dark:border-slate-700 py-4 px-2 dark:text-slate-400 flex">
                                 <a href="{{route('application.show', $item->id)}}" class="a bg-indigo-700 text-white p-1 rounded-md mr-2">View</a>
                                 @if (auth()->user()->authorizationType === 'B')
-                                    <form method="POST" action="{{route('application.destroy', $item->id)}}" class="formDeleteApp" >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-700 text-white p-1 rounded-md mr-2">Delete</button>
-                                    </form>
-                                    @unless ($item->status == 'Canceled')
+                                    @unless ($item->status === 'Release')
+                                        <form method="POST" action="{{route('application.destroy', $item->id)}}" class="formDeleteApp" >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-700 text-white p-1 rounded-md mr-2">Delete</button>
+                                        </form>
+                                    @endunless    
+                                    @unless ($item->status == 'Canceled' || $item->status === 'Approve' || $item->status === 'Disapprove' || $item->status === 'Release')
                                         <form method="POST" action="{{route('application.cancel', $item->id)}}" class="formCancelApp" >
                                             @csrf
                                             <button type="submit" class="bg-red-700 text-white p-1 rounded-md">Cancel</button>

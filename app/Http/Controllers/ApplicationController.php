@@ -194,6 +194,9 @@ class ApplicationController extends Controller
         else if($clickEvent == 'Delete'){
             return $this->destroy($app);
         }
+        else if($clickEvent == 'Release'){
+            return $this->release($app, $request);
+        }
     }
 
     /**
@@ -221,18 +224,37 @@ class ApplicationController extends Controller
 
     public function cancel(Application $app){
         // Update application status
-        $app->status = 'Canceled';
+        $app->status = 'Cancel';
         $app->save();
 
         // Insert new data to status logs
         StatusLog::create([
             'app_id'  => $app->id,
-            'status'  => 'Canceled',
+            'status'  => 'Cancel',
             'user_id' => auth()->user()->id
         ]);
 
         // Get customer data
         $custName = $app->customer->lname . ', ' . $app->customer->fname;
         return redirect('application')->with('application.canceled', $custName . ' application has been canceled!');
+    }
+
+    public function release(Application $app, Request $request)
+    {
+        // Update application status
+        $app->status = 'Release';
+        $app->releasedUnit = $request->input('releasedUnit');
+        $app->save();
+
+        // Insert new data to status logs
+        StatusLog::create([
+            'app_id'  => $app->id,
+            'status'  => 'Release',
+            'user_id' => auth()->user()->id
+        ]);
+
+        // Get customer data
+        $custName = $app->customer->lname . ', ' . $app->customer->fname;
+        return redirect('application')->with('application.released', $custName . ' application has been released!');
     }
 }

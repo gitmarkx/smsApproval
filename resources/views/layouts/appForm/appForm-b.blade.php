@@ -24,14 +24,21 @@
     <hr class="my-5">
     @if (auth()->user()->authorizationType === 'B')
         <ul class="flex flex-wrap ">
-            @unless ($application->status === 'Canceled')
-                <li class="w-1/2 px-1">
-                    <x-primary-button class="mr-5 w-24" name="Cancel" value="Cancel">Cancel</x-primary-button>
+            @unless ($application->status === 'Cancel' || $application->status === 'Approve' || $application->status === 'Disapprove' || $application->status === 'Release')
+                <li class="w-1/2 px-1 mb-3">
+                    <x-primary-button class="mr-5 w-24" name="Cancel">Cancel</x-primary-button>
                 </li>
             @endunless
-            <li class="w-1/2 px-1">
-                <x-primary-button class="mr-5 w-24" name="Delete" value="Delete">Delete</x-primary-button>
-            </li>
+            @if ($application->status === 'Approve')
+                <li class="w-1/2 px-1 mb-3">
+                    <x-primary-button class="mr-5 w-24" name="Release">Release</x-primary-button>
+                </li>
+            @endif
+            @unless ($application->status === 'Release')
+                <li class="w-1/2 px-1 mb-3">
+                    <x-primary-button class="mr-5 w-24" name="Delete">Delete</x-primary-button>
+                </li>
+            @endunless
         </ul>
     @endif
     <input type="hidden" name="clickEvent" id="clickEvent">
