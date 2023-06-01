@@ -183,32 +183,40 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Application $app)
     {
-        //
+        // Branch Users actions
+        $clickEvent = $request->input('clickEvent');
+        if($clickEvent == 'Cancel'){
+            return $this->cancel($app);
+
+        }
+        else if($clickEvent == 'Delete'){
+            return $this->destroy($app);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $app)
+    public function destroy(Application $app)
     {
         // Get customer data
-        $data = Application::find($app)->customer;
+        $data = Application::find($app->id)->customer;
         $custName = $data->lname . ', ' . $data->fname;
 
         // Remove images from storage folder
-        $appimg = ApplicationImages::get()->where('app_id', '=', $app);
+        $appimg = ApplicationImages::get()->where('app_id', '=', $app->id);
         $decodeJSON = json_decode($appimg);
         $imgPath = reset($decodeJSON)->imgSrc;
         $folderName = explode('/', $imgPath)[1];
         Storage::disk('public')->deleteDirectory('documents/' . $folderName);
 
         // Remove applications data from table
-        ApplicationImages::whereIn('app_id', [$app])->delete();
-        Application::findOrFail($app)->delete();
+        ApplicationImages::whereIn('app_id', [$app->id])->delete();
+        Application::findOrFail($app->id)->delete();
 
-        return back()->with('application.deleted', $custName . ' application has been deleted!');
+        return redirect('application')->with('application.deleted', $custName . ' application has been deleted!');
     }
 
     public function cancel(Application $app){
@@ -225,6 +233,6 @@ class ApplicationController extends Controller
 
         // Get customer data
         $custName = $app->customer->lname . ', ' . $app->customer->fname;
-        return back()->with('application.canceled', $custName . ' application has been canceled!');
+        return redirect('application')->with('application.canceled', $custName . ' application has been canceled!');
     }
 }

@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/application/{app}', [ApplicationController::class, 'show'])->name('application.show');
     Route::delete('/application/{app}', [ApplicationController::class, 'destroy'])->name('application.destroy');
     Route::post('/application/{app}', [ApplicationController::class, 'cancel'])->name('application.cancel');
+    Route::put('/application/{app}', [ApplicationController::class, 'update'])->name('application.update');
 
     // Profile related routes
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');

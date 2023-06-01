@@ -26,3 +26,25 @@ if(document.getElementById('formCancelApp')){
         }
     })
 }
+
+if(document.getElementById('b-form-app')){
+    document.getElementById('b-form-app').addEventListener('submit', function(e){
+        e.preventDefault()
+        const btnCancel = e.submitter.name === "Cancel";
+        const btnDelete = e.submitter.name === "Delete";
+        let clickEvent = document.getElementById('clickEvent')
+
+        if(btnCancel){
+            if(confirm('Are you sure you want to cancel this application?')){
+                clickEvent.value = 'Cancel'
+                this.submit();
+            }
+        }
+        if(btnDelete){
+            if(confirm('Are you sure you want to delete this application?')){
+                clickEvent.value = 'Delete'
+                this.submit();
+            }
+        } 
+    })
+}

@@ -1,5 +1,7 @@
 
-<form action="">
+<form action="{{route('application.update', $application->id)}}" method="POST" id="b-form-app">
+    @csrf
+    @method('PUT')
     <ul>
         <li class="mb-3">
             <label for="releasedUnit" class="font-bold">Released Unit</label>
@@ -7,15 +9,15 @@
             <x-input-error :messages="$errors->get('releasedUnit')" class="mt-2" />
         </li>
         <li class="mb-3">
-            <label for="bracket" class="font-bold">Bracket</label>
+            <p class="font-bold">Bracket</p>
             <p>{{$application->bracket}}</p>
         </li>
         <li class="mb-3">
-            <label for="notes" class="font-bold">Notes</label>
+            <p class="font-bold">Notes</p>
             <p>{{$application->notes}}</p>
         </li>
         <li>
-            <label for="recommendation" class="font-bold">Recommendation</label>
+            <p class="font-bold">Recommendation</p>
             <p>{{$application->recommendation}}</p>
         </li>
     </ul>
@@ -24,17 +26,13 @@
         <ul class="flex flex-wrap ">
             @unless ($application->status === 'Canceled')
                 <li class="w-1/2 px-1">
-                    <x-primary-button class="mr-5 w-24">Cancel</x-primary-button>
+                    <x-primary-button class="mr-5 w-24" name="Cancel" value="Cancel">Cancel</x-primary-button>
                 </li>
             @endunless
-            @if ($application->status === 'Canceled' || $application->status === 'Disapproved')
-                <li class="w-1/2 px-1">
-                    <x-primary-button class="mr-5 w-24">Reprocessed</x-primary-button>
-                </li>
-            @endif
             <li class="w-1/2 px-1">
-                <x-primary-button class="mr-5 w-24">Delete</x-primary-button>
+                <x-primary-button class="mr-5 w-24" name="Delete" value="Delete">Delete</x-primary-button>
             </li>
         </ul>
     @endif
+    <input type="hidden" name="clickEvent" id="clickEvent">
 </form>
