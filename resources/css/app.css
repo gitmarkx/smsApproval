@@ -2,8 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+*{
     font-size: 14px;
+}
+
+input[disabled]{
+    background-color: transparent;
+}
+
+.appTable{
+    width: 600px;
+    overflow: scroll;
 }
 
 @media screen and (min-width: 640px) {
@@ -14,6 +23,14 @@ body{
     .applicationWrap nav > div:last-child{
         width: 100%;
     }
+}
+
+@media screen and (min-width: 880px) {
+    .appTable{
+        width: 100%;
+        overflow: auto;
+    }
+    
 }
 
 @media screen and (max-width: 639px) {
@@ -35,7 +52,7 @@ body{
 .modal-overlay{
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     height: 100%;
     visibility: hidden;
@@ -44,6 +61,12 @@ body{
     transition: 0.33s visibility ease-in-out, 0.33s opacity ease-in-out,
         0.33s transform ease-in-out;
     will-change: visibility, transform, opacity;
+}
+
+@media only screen and (min-width: 640px) {
+    .modal-overlay{
+        width: calc(100% - 16rem);
+    }
 }
 
 .modal-overlay--visible {

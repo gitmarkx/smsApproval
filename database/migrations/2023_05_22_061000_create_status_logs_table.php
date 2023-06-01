@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('app_id');
             $table->foreign('app_id')->references('id')->on('applications')->onDelete('cascade');
             $table->string('status');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

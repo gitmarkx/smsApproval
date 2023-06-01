@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branch')->onDelete('cascade');
-            $table->unsignedBigInteger('verify_id');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->unsignedBigInteger('verify_id')->nullable();
             $table->foreign('verify_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('salesAccount')->nullable(); 
             $table->string('transactionType')->nullable(); 

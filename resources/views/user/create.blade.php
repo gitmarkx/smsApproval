@@ -24,9 +24,10 @@
                 <label for="authorizationType">Authorization Type</label>
                 <select name="authorizationType" id="authorizationType" class="mt-2 w-full border border-gray-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-violet-300">
                     <option value="" selected disabled hidden>Choose here</option>
-                    <option value="Admin" {{old('authorizationType') === 'Admin' ? 'selected' : ''}}>Admin</option>
-                    <option value="Verifier" {{old('authorizationType') === 'Verifier' ? 'selected' : ''}}>Verifier</option>
-                    <option value="Branch" {{old('authorizationType') === 'Branch' ? 'selected' : ''}}>Branch</option>
+                    <option value="M" {{old('authorizationType') === 'M' ? 'selected' : ''}}>Admin</option>
+                    <option value="A" {{old('authorizationType') === 'A' ? 'selected' : ''}}>Approval</option>
+                    <option value="V" {{old('authorizationType') === 'V' ? 'selected' : ''}}>Verifier</option>
+                    <option value="B" {{old('authorizationType') === 'B' ? 'selected' : ''}}>Branch</option>
                 </select>
                 <x-input-error :messages="$errors->get('authorizationType')" class="mt-2" />
             </div>

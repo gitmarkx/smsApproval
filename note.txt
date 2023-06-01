@@ -5,3 +5,9 @@ Application Type
 User Status
 0 - Inactive
 1 - Active
+
+User Authorization Type
+M - Admin
+A - Approval
+V - Verifier
+B - Branch

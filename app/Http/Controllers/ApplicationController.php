@@ -117,7 +117,7 @@ class ApplicationController extends Controller
             ]);
 
             $this->storeDocuments([
-                'customer_id' => $request->customer_id,
+                'customer_id' => $latestCustId,
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'imgSrc' => $request->file('imgSrc')
@@ -183,16 +183,78 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Application $app)
     {
-        //
+        // Branch Users actions
+        $clickEvent = $request->input('clickEvent');
+        if($clickEvent == 'Cancel'){
+            return $this->cancel($app);
+
+        }
+        else if($clickEvent == 'Delete'){
+            return $this->destroy($app);
+        }
+        else if($clickEvent == 'Release'){
+            return $this->release($app, $request);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Application $app)
     {
-        //
+        // Get customer data
+        $data = Application::find($app->id)->customer;
+        $custName = $data->lname . ', ' . $data->fname;
+
+        // Remove images from storage folder
+        $appimg = ApplicationImages::get()->where('app_id', '=', $app->id);
+        $decodeJSON = json_decode($appimg);
+        $imgPath = reset($decodeJSON)->imgSrc;
+        $folderName = explode('/', $imgPath)[1];
+        Storage::disk('public')->deleteDirectory('documents/' . $folderName);
+
+        // Remove applications data from table
+        ApplicationImages::whereIn('app_id', [$app->id])->delete();
+        Application::findOrFail($app->id)->delete();
+
+        return redirect('application')->with('application.deleted', $custName . ' application has been deleted!');
+    }
+
+    public function cancel(Application $app){
+        // Update application status
+        $app->status = 'Cancel';
+        $app->save();
+
+        // Insert new data to status logs
+        StatusLog::create([
+            'app_id'  => $app->id,
+            'status'  => 'Cancel',
+            'user_id' => auth()->user()->id
+        ]);
+
+        // Get customer data
+        $custName = $app->customer->lname . ', ' . $app->customer->fname;
+        return redirect('application')->with('application.canceled', $custName . ' application has been canceled!');
+    }
+
+    public function release(Application $app, Request $request)
+    {
+        // Update application status
+        $app->status = 'Release';
+        $app->releasedUnit = $request->input('releasedUnit');
+        $app->save();
+
+        // Insert new data to status logs
+        StatusLog::create([
+            'app_id'  => $app->id,
+            'status'  => 'Release',
+            'user_id' => auth()->user()->id
+        ]);
+
+        // Get customer data
+        $custName = $app->customer->lname . ', ' . $app->customer->fname;
+        return redirect('application')->with('application.released', $custName . ' application has been released!');
     }
 }

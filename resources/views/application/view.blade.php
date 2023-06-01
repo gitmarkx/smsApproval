@@ -81,30 +81,9 @@
                     </li>
                 </ul>
                 <hr class="my-3">
-                <form action="">
-                    <ul>
-                        <li class="mb-3">
-                            <label for="releasedUnit" class="font-bold">Released Unit</label>
-                            <x-text-input id="releasedUnit" class="block mt-2" type="text" name="releasedUnit" value="{{old('releasedUnit', $application->releasedUnit)}}" />
-                            <x-input-error :messages="$errors->get('releasedUnit')" class="mt-2" />
-                        </li>
-                        <li class="mb-3">
-                            <label for="bracket" class="font-bold">Bracket</label>
-                            <x-text-input id="bracket" class="block mt-2" type="text" name="bracket" value="{{old('bracket', $application->bracket)}}" />
-                            <x-input-error :messages="$errors->get('bracket')" class="mt-2" />
-                        </li>
-                        <li class="mb-3">
-                            <label for="notes" class="font-bold">Notes</label>
-                            <textarea id="notes" rows="5" class="block mt-2 w-full border border-gray-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-violet-300" type="text" name="notes">{{old('notes', $application->notes)}}</textarea>
-                            <x-input-error :messages="$errors->get('notes')" class="mt-2" />
-                        </li>
-                        <li>
-                            <label for="recommendation" class="font-bold">Recommendation</label>
-                            <textarea id="recommendation" rows="5" class="block mt-2 w-full border border-gray-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-violet-300" type="text" name="recommendation">{{old('recommendation', $application->recommendation)}}</textarea>
-                            <x-input-error :messages="$errors->get('recommendation')" class="mt-2" />
-                        </li>
-                    </ul>
-                </form>
+                @if (auth()->user()->authorizationType === 'B')
+                    @include('layouts.appForm.appForm-b')
+                @endif
             </div>
         </div>
     </div>

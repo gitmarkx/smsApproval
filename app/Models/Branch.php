@@ -10,7 +10,7 @@ class Branch extends Model
     use HasFactory;
 
     // Manually declare table whene the migration file table name is not plural
-    protected $table = 'branch';
+    // protected $table = 'branch';
 
     protected $fillable = [
         'key',
